@@ -9,6 +9,9 @@ uniform vec4 outline_colour = vec4(0,0,0,1);
 const float pi = 3.1415;
 const int ang_res = 16;
 
+uniform vec4 flash_color : source_color;
+uniform float flash_value : hint_range(0.0, 1.0, 0.1);
+
 
 float hash(vec2 p, float s) {
 	return fract(35.1 * sin(dot(vec3(112.3, 459.2, 753.2), vec3(p, s))));
@@ -38,6 +41,10 @@ float get_line_width(vec2 p, float s) {
 
 void fragment() {
 
+	vec4 texture_color = texture(TEXTURE, UV);
+	COLOR = mix(texture_color, flash_color, flash_value);
+	COLOR.a = texture_color.a;
+	
 	float alpha = 0.0;
 	float timeStep = floor(TIME * freq);
 	vec2 scale = TEXTURE_PIXEL_SIZE;

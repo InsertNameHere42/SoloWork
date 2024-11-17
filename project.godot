@@ -24,6 +24,10 @@ HitStopManager="*res://singletons/HitStopManager.gd"
 gdscript/warnings/native_method_override=1
 gdscript/warnings/onready_with_export=1
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 Up={

@@ -9,7 +9,6 @@ class_name MeleeEnemy
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var wall_check: RayCast2D = $wallCheck
 @onready var aggro: Area2D = $Aggro
-@onready var sight: RayCast2D = $Sight
 @onready var aggroCollider: CollisionShape2D = $Aggro/CollisionShape2D
 @onready var attack_check: Area2D = $AttackCheck
 @onready var hit_sound: AudioStreamPlayer = $HitSound
@@ -120,6 +119,7 @@ func attack():
 	animation_player.play("Attack")
 	await get_tree().create_timer(0.4, true, false, false).timeout
 	attack_sound.play()
+	await get_tree().create_timer(randf_range(0.2, 0.8), true, false, false).timeout
 	stunned = false
 
 func _on_aggro_area_entered(_area: Area2D) -> void:

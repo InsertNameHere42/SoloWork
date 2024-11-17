@@ -14,9 +14,8 @@ grow_vertical = 2
 script = ExtResource("1_nayes")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-offset = Vector2(0, 50)
-scale = Vector2(2, 2)
-transform = Transform2D(2, 0, 0, 2, 0, 50)
+scale = Vector2(1.2, 1.2)
+transform = Transform2D(1.2, 0, 0, 1.2, 0, 0)
 scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]

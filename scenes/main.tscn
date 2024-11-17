@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://drjntel6vf1v5"]
+[gd_scene load_steps=14 format=4 uid="uid://drjntel6vf1v5"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ovodv"]
 [ext_resource type="Texture2D" uid="uid://frxwvf1eayki" path="res://assets/sprites/SchoolGameJamTileSet-Recovered.png" id="1_vom8p"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bfd8ofm6ucuq5" path="res://scenes/melee_enemy.tscn" id="7_2a736"]
 [ext_resource type="PackedScene" uid="uid://jymxphwhs764" path="res://scenes/ranged_enemy_blue.tscn" id="8_4des5"]
 [ext_resource type="AudioStream" uid="uid://c0onahak1qt6k" path="res://assets/Sounds/Song.mp3" id="9_jjq7b"]
+[ext_resource type="PackedScene" uid="uid://brtbumnximld2" path="res://scenes/boss.tscn" id="10_y6w3b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yyvlf"]
 texture = ExtResource("1_vom8p")
@@ -211,6 +212,8 @@ shader_parameter/min_line_width = 5.0
 shader_parameter/freq = 1.0
 shader_parameter/block_size = 20.0
 shader_parameter/outline_colour = Vector4(0, 0, 0, 1)
+shader_parameter/flash_color = null
+shader_parameter/flash_value = null
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_ovodv")
@@ -219,7 +222,7 @@ script = ExtResource("1_ovodv")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.05, 0)
-motion_offset = Vector2(0, 400)
+motion_offset = Vector2(0, 300)
 motion_mirroring = Vector2(0, 1584)
 
 [node name="Background1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
@@ -237,7 +240,7 @@ position = Vector2(0, -24)
 collision_layer = 65
 
 [node name="Camera2D" parent="." node_paths=PackedStringArray("follow_node") instance=ExtResource("3_xll3r")]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 maxOffset = Vector2(200, 150)
 maxRoll = 0.3
 follow_node = NodePath("../Player")
@@ -275,3 +278,8 @@ target = NodePath("../Player")
 stream = ExtResource("9_jjq7b")
 autoplay = true
 bus = &"Music"
+
+[node name="Boss" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_y6w3b")]
+position = Vector2(163, -49)
+knockbackForce = 200
+target = NodePath("../Player")

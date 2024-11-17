@@ -19,3 +19,4 @@ func reflect():
 	hurt_box.collision_mask = 128
 	speed *= 2
 	direction *= -1
+	hurt_box.knockback = 0

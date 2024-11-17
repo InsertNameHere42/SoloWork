@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var dash_particles: GPUParticles2D = $DashParticles
@@ -9,8 +10,6 @@ extends CharacterBody2D
 @onready var hit: AnimationPlayer = $Hit
 @onready var parry_particles: GPUParticles2D = $ParryParticles
 @onready var sfx: Node = $SFX
-
-
 
 @export var maxSpeed := 600.0
 @export var acceleration := 1200
@@ -59,7 +58,7 @@ func _physics_process(delta: float) -> void:
 		shiftCoolDown+=delta
 	if Input.is_action_just_pressed("Attack"):
 		attack()
-	if parryLength>= 0.2:
+	if parryLength>= 0.15:
 		parrying = false
 	if parryLength >= 0.3:
 		if Input.is_action_just_pressed("Block"):
@@ -173,7 +172,7 @@ func takeDamage(damage, knockback):
 		ui.setHP(hp)
 		hit.play("ParryFlash")
 		sfx.playParry()
-		HitStopManager.hitStop(0.5)
+		HitStopManager.hitStop(0.4)
 		parryLength = 0.3
 		return true
 	else:
@@ -186,7 +185,7 @@ func takeDamage(damage, knockback):
 		owner.shake(0.2)
 		hit.play("HitFlash")
 		sfx.playHit()
-		HitStopManager.hitStop(0.4)
+		HitStopManager.hitStop(0.3)
 		if(hp<=0):
 			get_tree().change_scene_to_file("scenes/game_over.tscn")
 		return false
