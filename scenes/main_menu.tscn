@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dey7rwowmcxby"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_84dfd"]
+[ext_resource type="Texture2D" uid="uid://cxxgxlm12jkaw" path="res://assets/sprites/gamejambackground.png" id="2_karjs"]
+[ext_resource type="FontFile" uid="uid://c21pwt6ara5g0" path="res://assets/Fonts/Doto-VariableFont_ROND,wght.ttf" id="3_p428w"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_84dfd")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(0, 50)
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 50)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0)
+motion_offset = Vector2(0, 400)
+motion_mirroring = Vector2(3840, 1584)
+
+[node name="Background1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(905.778, -134.469)
+scale = Vector2(1.21308, 1.21308)
+texture = ExtResource("2_karjs")
+offset = Vector2(0, 30)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -496.0
+offset_top = -113.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_hover_pressed_color = Color(0.461185, 0.121282, 0.562812, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.898039, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.898039, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_p428w")
+theme_override_font_sizes/font_size = 32
+text = "Enter The Wave?"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

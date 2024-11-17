@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmf05ulvs7he6"]
+
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_nayes"]
+[ext_resource type="Texture2D" uid="uid://cxxgxlm12jkaw" path="res://assets/sprites/gamejambackground.png" id="2_mh33i"]
+[ext_resource type="FontFile" uid="uid://c21pwt6ara5g0" path="res://assets/Fonts/Doto-VariableFont_ROND,wght.ttf" id="3_qgbsu"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nayes")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(0, 50)
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 50)
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0)
+motion_offset = Vector2(0, 400)
+motion_mirroring = Vector2(0, 1584)
+
+[node name="Background1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(905.778, -134.469)
+scale = Vector2(1.21308, 1.21308)
+texture = ExtResource("2_mh33i")
+offset = Vector2(0, 30)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.0
+offset_top = -59.5
+offset_right = 188.0
+offset_bottom = 59.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.188235, 0, 0.807843, 1)
+theme_override_fonts/font = ExtResource("3_qgbsu")
+theme_override_font_sizes/font_size = 64
+text = "Lost In The Wave...
+"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="Countdown" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 3.0
+offset_right = 20.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.796078, 0, 0.784314, 1)
+theme_override_fonts/font = ExtResource("3_qgbsu")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

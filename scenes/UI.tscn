@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b206gelk3gnp0"]
+
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_4wldr"]
+[ext_resource type="PackedScene" uid="uid://bqdskwtthvul4" path="res://scenes/hp_bar.tscn" id="2_yb4r4"]
+[ext_resource type="Texture2D" uid="uid://dyl7y2cnto1vx" path="res://assets/sprites/ShiftBar.png" id="3_2qef5"]
+[ext_resource type="Texture2D" uid="uid://cg8u0nid68iyg" path="res://assets/sprites/Shift.png" id="4_1ukon"]
+
+[node name="UI" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_4wldr")
+
+[node name="HPBar" parent="." instance=ExtResource("2_yb4r4")]
+
+[node name="ShiftBar" type="TextureProgressBar" parent="."]
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 51.0
+offset_bottom = 47.0
+max_value = 300.0
+texture_over = ExtResource("3_2qef5")
+texture_progress = ExtResource("4_1ukon")

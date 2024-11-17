@@ -1,0 +1,154 @@
+[gd_scene load_steps=15 format=3 uid="uid://ba70q2842hukx"]
+
+[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="1_uipjp"]
+[ext_resource type="Script" path="res://Scripts/basicEnemy.gd" id="2_0hlu8"]
+[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="3_1577d"]
+[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="4_oxhug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ogcby"]
+resource_local_to_scene = true
+shader = ExtResource("1_uipjp")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sebg3"]
+size = Vector2(123.429, 125.714)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lycwo"]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_f02iv"]
+_data = [Vector2(0.348571, 1), 0.0, 0.0, 0, 0, Vector2(0.754286, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ei4yk"]
+curve = SubResource("Curve_f02iv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dxvbi"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 939.76
+initial_velocity_max = 1750.0
+gravity = Vector3(0, 0, 0)
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_ei4yk")
+anim_offset_max = 1.0
+
+[sub_resource type="Animation" id="Animation_o0g2y"]
+resource_name = "Dead"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_ywday"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_ogcby")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.4375, 0.4375)]
+}
+
+[sub_resource type="Animation" id="Animation_o6vjw"]
+resource_name = "hitFlash"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [null, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1cxok"]
+_data = {
+"Dead": SubResource("Animation_o0g2y"),
+"RESET": SubResource("Animation_ywday"),
+"hitFlash": SubResource("Animation_o6vjw")
+}
+
+[node name="Enemy" type="Sprite2D"]
+material = SubResource("ShaderMaterial_ogcby")
+position = Vector2(-1, -1)
+scale = Vector2(0.4375, 0.4375)
+script = ExtResource("2_0hlu8")
+shakeStrength = 0.2
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 128
+script = ExtResource("3_1577d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(6.67572e-06, -1.14285)
+shape = SubResource("RectangleShape2D_sebg3")
+
+[node name="HitParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_lycwo")
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_dxvbi")
+texture = ExtResource("4_oxhug")
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.85
+randomness = 0.1
+fixed_fps = 24
+interpolate = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1cxok")
+}

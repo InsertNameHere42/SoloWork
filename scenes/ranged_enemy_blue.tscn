@@ -1,0 +1,275 @@
+[gd_scene load_steps=25 format=3 uid="uid://jymxphwhs764"]
+
+[ext_resource type="Script" path="res://Scripts/ranged_enemy.gd" id="1_h0y3j"]
+[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_e0s8s"]
+[ext_resource type="Texture2D" uid="uid://dh5jn8wk7o1cy" path="res://assets/sprites/Enemies/groundEnemy.png" id="3_mf70f"]
+[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_spvq7"]
+[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="5_bn26n"]
+[ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="6_knkfj"]
+[ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="7_awhh0"]
+[ext_resource type="AudioStream" uid="uid://bxslda2imp0vq" path="res://assets/Sounds/EnemyShoot.mp3" id="7_chb8d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nl4ps"]
+size = Vector2(20, 41)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hhr4w"]
+resource_local_to_scene = true
+shader = ExtResource("2_e0s8s")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="Animation" id="Animation_334xi"]
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 0]
+}
+
+[sub_resource type="Animation" id="Animation_im711"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wjevy"]
+resource_name = "Walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ldb6f"]
+_data = {
+"Attack": SubResource("Animation_334xi"),
+"RESET": SubResource("Animation_im711"),
+"Walk": SubResource("Animation_wjevy")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pney5"]
+size = Vector2(20, 43)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sibt6"]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_dah8h"]
+_data = [Vector2(0.348571, 1), 0.0, 0.0, 0, 0, Vector2(0.754286, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d5f6x"]
+curve = SubResource("Curve_dah8h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yuudr"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 735.37
+initial_velocity_max = 1750.0
+gravity = Vector3(0, 0, 0)
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_d5f6x")
+anim_offset_max = 1.0
+
+[sub_resource type="Animation" id="Animation_tyk5r"]
+resource_name = "Dead"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.1487),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_ve4x8"]
+resource_name = "Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4slw7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3wvo"]
+_data = {
+"Dead": SubResource("Animation_tyk5r"),
+"Hurt": SubResource("Animation_ve4x8"),
+"RESET": SubResource("Animation_4slw7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arcne"]
+size = Vector2(596.5, 336.5)
+
+[node name="RangedEnemyBlue" type="CharacterBody2D"]
+scale = Vector2(0.8, 0.8)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_h0y3j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_nl4ps")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_hhr4w")
+texture = ExtResource("3_mf70f")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ldb6f")
+}
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 128
+script = ExtResource("4_spvq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_pney5")
+
+[node name="DirectionTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="HitParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_sibt6")
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_yuudr")
+texture = ExtResource("5_bn26n")
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.7
+randomness = 0.1
+fixed_fps = 24
+interpolate = false
+
+[node name="Hit" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a3wvo")
+}
+
+[node name="wallCheck" type="RayCast2D" parent="."]
+position = Vector2(0, 22)
+target_position = Vector2(12, 0)
+collision_mask = 8
+
+[node name="Aggro" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_arcne")
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_chb8d")
+bus = &"SFX"
+script = ExtResource("7_awhh0")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_knkfj")
+bus = &"SFX"
+script = ExtResource("7_awhh0")
+
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
+[connection signal="area_entered" from="Aggro" to="." method="_on_aggro_area_entered"]
+[connection signal="area_exited" from="Aggro" to="." method="_on_aggro_area_exited"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqdskwtthvul4"]
+
+[ext_resource type="Texture2D" uid="uid://6ttfd4deyqc5" path="res://assets/sprites/HPBar.png" id="1_1rmgo"]
+[ext_resource type="Texture2D" uid="uid://t1qepshxwvps" path="res://assets/sprites/HP.png" id="2_xjxyl"]
+[ext_resource type="Script" path="res://Scripts/hp_bar.gd" id="3_6p8pu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myhyv"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="HPBar" type="TextureProgressBar"]
+offset_right = 82.0
+offset_bottom = 8.0
+value = 60.0
+texture_over = ExtResource("1_1rmgo")
+texture_progress = ExtResource("2_xjxyl")
+script = ExtResource("3_6p8pu")
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_myhyv")
+value = 80.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

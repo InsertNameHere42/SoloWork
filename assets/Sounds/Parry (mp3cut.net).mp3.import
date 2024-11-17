@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bjfsn5lc5gf6h"
+path="res://.godot/imported/Parry (mp3cut.net).mp3-a7f534ae154b3596defbff11f4d63f97.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Parry (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/Parry (mp3cut.net).mp3-a7f534ae154b3596defbff11f4d63f97.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
