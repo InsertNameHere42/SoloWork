@@ -119,7 +119,7 @@ func attack():
 	animation_player.play("Attack")
 	await get_tree().create_timer(0.4, true, false, false).timeout
 	attack_sound.play()
-	await get_tree().create_timer(randf_range(0.2, 0.8), true, false, false).timeout
+	await get_tree().create_timer(randf_range(0.3, 0.8), true, false, false).timeout
 	stunned = false
 
 func _on_aggro_area_entered(_area: Area2D) -> void:

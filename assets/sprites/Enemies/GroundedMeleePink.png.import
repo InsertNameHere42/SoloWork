@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3monfpiibwm1"
-path="res://.godot/imported/PlayerParticles.png-3832eb6d04837887bdb51176b5ecc2e1.ctex"
+uid="uid://dfe14jhbgi7x0"
+path="res://.godot/imported/GroundedMeleePink.png-ae6186e0ac1de8734fbc4896b4588ddd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/PlayerParticles.png"
-dest_files=["res://.godot/imported/PlayerParticles.png-3832eb6d04837887bdb51176b5ecc2e1.ctex"]
+source_file="res://assets/sprites/Enemies/GroundedMeleePink.png"
+dest_files=["res://.godot/imported/GroundedMeleePink.png-ae6186e0ac1de8734fbc4896b4588ddd.ctex"]
 
 [params]
 

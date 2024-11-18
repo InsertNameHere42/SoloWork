@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/HitBox.gd" id="3_a17xp"]
 [ext_resource type="Script" path="res://Scripts/HurtBox.gd" id="4_7xl5y"]
 [ext_resource type="PackedScene" uid="uid://b206gelk3gnp0" path="res://scenes/UI.tscn" id="5_w1ys2"]
-[ext_resource type="Texture2D" uid="uid://dqyiwdyvvtxd3" path="res://assets/sprites/PlayerParticles.png" id="6_653rj"]
+[ext_resource type="Texture2D" uid="uid://d3monfpiibwm1" path="res://assets/sprites/PlayerParticles.png" id="6_653rj"]
 [ext_resource type="Texture2D" uid="uid://d0rx4hnxxfgtf" path="res://assets/sprites/ParryParticles.png" id="7_lbwot"]
 [ext_resource type="Script" path="res://scenes/PlayerSFX.gd" id="9_bqsa1"]
 [ext_resource type="AudioStream" uid="uid://ckr4ximq8g5y" path="res://assets/Sounds/Attack.mp3" id="10_4glve"]
@@ -154,6 +154,18 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SFX/AttackSound:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_0x6yj"]
@@ -356,6 +368,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SFX/AttackSound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_fm35t"]
@@ -570,6 +594,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [0.0, 0.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SFX/AttackSound:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_x7ssx"]
 resource_name = "JumpStart"
@@ -780,6 +816,18 @@ tracks/9/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("SFX/AttackSound:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_wsdxs"]
 resource_name = "Run"
@@ -833,7 +881,7 @@ animation = &"Attack1"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_t647i"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jv1k1"]
-graph_offset = Vector2(-418.273, 97.3636)
+graph_offset = Vector2(-199, 107)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_00jkm")
 nodes/Animation/position = Vector2(0, 180)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_t647i")
@@ -860,7 +908,7 @@ animation = &"Attack3"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pckf3"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kd0g1"]
-graph_offset = Vector2(-264, 6)
+graph_offset = Vector2(-309, 74)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_as8bx")
 nodes/Animation/position = Vector2(8.47, 128.26)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_pckf3")
@@ -1121,7 +1169,7 @@ states/Parry/position = Vector2(350, -77)
 states/Run/node = SubResource("AnimationNodeBlendTree_57xff")
 states/Run/position = Vector2(346, 208)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_j6hgl"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ndsno"), "Idle", "JumpStart", SubResource("AnimationNodeStateMachineTransition_ky22m"), "Run", "JumpStart", SubResource("AnimationNodeStateMachineTransition_ggcil"), "JumpStart", "JumpUp", SubResource("AnimationNodeStateMachineTransition_j6q6g"), "JumpUp", "FallingStart", SubResource("AnimationNodeStateMachineTransition_dbdr1"), "FallingStart", "FallingDown", SubResource("AnimationNodeStateMachineTransition_5y261"), "FallingDown", "Idle", SubResource("AnimationNodeStateMachineTransition_74hlg"), "FallingDown", "JumpAttack", SubResource("AnimationNodeStateMachineTransition_kwupl"), "FallingStart", "JumpAttack", SubResource("AnimationNodeStateMachineTransition_k78k6"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_0k6ld"), "JumpUp", "JumpAttack", SubResource("AnimationNodeStateMachineTransition_2qdcm"), "Attack1", "Attack2", SubResource("AnimationNodeStateMachineTransition_dl6sj"), "Attack2", "Attack3", SubResource("AnimationNodeStateMachineTransition_dwfns"), "Attack3", "Idle", SubResource("AnimationNodeStateMachineTransition_hdqga"), "Attack2", "Idle", SubResource("AnimationNodeStateMachineTransition_lp645"), "Attack1", "Idle", SubResource("AnimationNodeStateMachineTransition_qwtvh"), "Idle", "Attack1", SubResource("AnimationNodeStateMachineTransition_6hria"), "Parry", "Idle", SubResource("AnimationNodeStateMachineTransition_3u1bw"), "Run", "Parry", SubResource("AnimationNodeStateMachineTransition_ydd2r"), "Idle", "Parry", SubResource("AnimationNodeStateMachineTransition_bi74b"), "Run", "Attack1", SubResource("AnimationNodeStateMachineTransition_laglk"), "FallingDown", "Run", SubResource("AnimationNodeStateMachineTransition_ig5hu"), "Run", "FallingStart", SubResource("AnimationNodeStateMachineTransition_rnqmt"), "JumpAttack", "JumpUp", SubResource("AnimationNodeStateMachineTransition_7u012"), "JumpAttack", "FallingStart", SubResource("AnimationNodeStateMachineTransition_dwdwa"), "JumpAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_87x6r"), "JumpAttack", "Run", SubResource("AnimationNodeStateMachineTransition_awk85"), "JumpStart", "JumpAttack", SubResource("AnimationNodeStateMachineTransition_ejxks"), "FallingDown", "Parry", SubResource("AnimationNodeStateMachineTransition_s6d8j"), "JumpUp", "Parry", SubResource("AnimationNodeStateMachineTransition_yw0ih"), "JumpStart", "Parry", SubResource("AnimationNodeStateMachineTransition_qyry2"), "FallingStart", "Parry", SubResource("AnimationNodeStateMachineTransition_xd8am"), "JumpUp", "Idle", SubResource("AnimationNodeStateMachineTransition_ta2x2"), "FallingStart", "Idle", SubResource("AnimationNodeStateMachineTransition_vb38m"), "JumpStart", "Idle", SubResource("AnimationNodeStateMachineTransition_h8sgq"), "Attack2", "Parry", SubResource("AnimationNodeStateMachineTransition_huwiv")]
-graph_offset = Vector2(-180, -108)
+graph_offset = Vector2(-163, -39)
 
 [sub_resource type="Shader" id="Shader_7topr"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's CanvasItemMaterial.
@@ -1343,9 +1391,9 @@ parameters/conditions/falling = false
 parameters/conditions/idle = false
 parameters/conditions/jumpingUp = false
 parameters/conditions/running = false
-parameters/Attack1/TimeScale/scale = 1.0
-parameters/Attack2/TimeScale/scale = 1.3
-parameters/Attack3/TimeScale/scale = 1.0
+parameters/Attack1/TimeScale/scale = 1.2
+parameters/Attack2/TimeScale/scale = 1.5
+parameters/Attack3/TimeScale/scale = 1.3
 parameters/FallingDown/TimeScale/scale = 1.0
 parameters/FallingStart/TimeScale/scale = 1.0
 parameters/Idle/TimeScale/scale = 1.0

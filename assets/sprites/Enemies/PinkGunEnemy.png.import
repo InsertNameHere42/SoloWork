@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3monfpiibwm1"
-path="res://.godot/imported/PlayerParticles.png-ef9d3242b9a47f1bcc3490c65a488854.ctex"
+uid="uid://885q03wosfqd"
+path="res://.godot/imported/PinkGunEnemy.png-1ae66840538509cb208705c00f803221.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlayerParticles.png"
-dest_files=["res://.godot/imported/PlayerParticles.png-ef9d3242b9a47f1bcc3490c65a488854.ctex"]
+source_file="res://assets/sprites/Enemies/PinkGunEnemy.png"
+dest_files=["res://.godot/imported/PinkGunEnemy.png-1ae66840538509cb208705c00f803221.ctex"]
 
 [params]
 

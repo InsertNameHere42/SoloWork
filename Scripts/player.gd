@@ -124,11 +124,9 @@ func attack():
 			setDmg(10)
 			attack1 = 0
 			animation_tree.get("parameters/playback").travel("Attack1")
-			sfx.playAttack()
 		else:
-			setDmg(30)
+			setDmg(20)
 			animation_tree.get("parameters/playback").travel("Attack3")
-			sfx.playAttack()
 			attack1 = 0.5
 	elif jumpAttackCooldown >= 0.5:
 		setDmg(7.5)
@@ -143,7 +141,6 @@ func attack():
 			dash_particles.emitting = true
 			velocity.y = 0
 		animation_tree.get("parameters/playback").travel("JumpAttack")
-		sfx.playAttack()
 		jumpAttackCooldown = 0
 		
 func parry():

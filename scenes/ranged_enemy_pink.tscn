@@ -1,20 +1,21 @@
-[gd_scene load_steps=25 format=3 uid="uid://jymxphwhs764"]
+[gd_scene load_steps=26 format=3 uid="uid://3v64vmvffqfm"]
 
-[ext_resource type="Script" path="res://Scripts/ranged_enemy.gd" id="1_h0y3j"]
-[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_e0s8s"]
-[ext_resource type="Texture2D" uid="uid://dh5jn8wk7o1cy" path="res://assets/sprites/Enemies/groundEnemy.png" id="3_mf70f"]
-[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_spvq7"]
-[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="5_bn26n"]
-[ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="6_knkfj"]
-[ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="7_awhh0"]
-[ext_resource type="AudioStream" uid="uid://bxslda2imp0vq" path="res://assets/Sounds/EnemyShoot.mp3" id="7_chb8d"]
+[ext_resource type="Script" path="res://Scripts/ranged_enemy.gd" id="1_ph1rh"]
+[ext_resource type="PackedScene" uid="uid://dvlduc7mm8t6x" path="res://scenes/pink_bullet.tscn" id="2_f83l2"]
+[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_nvjwj"]
+[ext_resource type="Texture2D" uid="uid://885q03wosfqd" path="res://assets/sprites/Enemies/PinkGunEnemy.png" id="3_lrmds"]
+[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_xwsfm"]
+[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="5_elw7q"]
+[ext_resource type="AudioStream" uid="uid://bxslda2imp0vq" path="res://assets/Sounds/EnemyShoot.mp3" id="6_xle2a"]
+[ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="7_3aatv"]
+[ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="8_mig70"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nl4ps"]
 size = Vector2(20, 41)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hhr4w"]
 resource_local_to_scene = true
-shader = ExtResource("2_e0s8s")
+shader = ExtResource("2_nvjwj")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = 0.0
 
@@ -196,12 +197,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arcne"]
 size = Vector2(596.5, 336.5)
 
-[node name="RangedEnemyBlue" type="CharacterBody2D"]
+[node name="RangedEnemyPink" type="CharacterBody2D"]
 scale = Vector2(0.8, 0.8)
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_h0y3j")
-damageDealt = 10
+script = ExtResource("1_ph1rh")
+bullet = ExtResource("2_f83l2")
+healthMax = 30.0
+damageDealt = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10.5)
@@ -210,7 +213,8 @@ shape = SubResource("RectangleShape2D_nl4ps")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
 material = SubResource("ShaderMaterial_hhr4w")
-texture = ExtResource("3_mf70f")
+position = Vector2(16.25, 5)
+texture = ExtResource("3_lrmds")
 hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -220,7 +224,7 @@ libraries = {
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 128
-script = ExtResource("4_spvq7")
+script = ExtResource("4_xwsfm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, 11.5)
@@ -234,7 +238,7 @@ material = SubResource("CanvasItemMaterial_sibt6")
 emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_yuudr")
-texture = ExtResource("5_bn26n")
+texture = ExtResource("5_elw7q")
 lifetime = 0.5
 one_shot = true
 speed_scale = 1.5
@@ -259,20 +263,19 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro"]
 position = Vector2(240, -1)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_arcne")
 
 [node name="AttackSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_chb8d")
+stream = ExtResource("6_xle2a")
 volume_db = -15.0
 bus = &"SFX"
-script = ExtResource("7_awhh0")
+script = ExtResource("7_3aatv")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_knkfj")
+stream = ExtResource("8_mig70")
 volume_db = -10.0
 bus = &"SFX"
-script = ExtResource("7_awhh0")
+script = ExtResource("7_3aatv")
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="Aggro" to="." method="_on_aggro_area_entered"]

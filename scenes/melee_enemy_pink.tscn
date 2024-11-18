@@ -1,26 +1,27 @@
-[gd_scene load_steps=25 format=3 uid="uid://jymxphwhs764"]
+[gd_scene load_steps=28 format=3 uid="uid://bpss7q2eh8mw3"]
 
-[ext_resource type="Script" path="res://Scripts/ranged_enemy.gd" id="1_h0y3j"]
-[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_e0s8s"]
-[ext_resource type="Texture2D" uid="uid://dh5jn8wk7o1cy" path="res://assets/sprites/Enemies/groundEnemy.png" id="3_mf70f"]
-[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_spvq7"]
-[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="5_bn26n"]
-[ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="6_knkfj"]
-[ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="7_awhh0"]
-[ext_resource type="AudioStream" uid="uid://bxslda2imp0vq" path="res://assets/Sounds/EnemyShoot.mp3" id="7_chb8d"]
+[ext_resource type="Script" path="res://Scripts/melee_enemy.gd" id="1_mhye2"]
+[ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_klb8f"]
+[ext_resource type="Texture2D" uid="uid://dfe14jhbgi7x0" path="res://assets/sprites/Enemies/GroundedMeleePink.png" id="3_16oyy"]
+[ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_l5b3k"]
+[ext_resource type="Texture2D" uid="uid://sk2qgsc37e76" path="res://assets/sprites/SASGameJam.png" id="5_tvm1j"]
+[ext_resource type="Script" path="res://Scripts/HurtBox.gd" id="6_epr7v"]
+[ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="7_x80ex"]
+[ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="8_3oef2"]
+[ext_resource type="AudioStream" uid="uid://6ftmrao04hn2" path="res://assets/Sounds/EnemySwing.mp3" id="9_1eqci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nl4ps"]
-size = Vector2(20, 41)
+size = Vector2(17, 41)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hhr4w"]
 resource_local_to_scene = true
-shader = ExtResource("2_e0s8s")
+shader = ExtResource("2_klb8f")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_value = 0.0
 
-[sub_resource type="Animation" id="Animation_334xi"]
+[sub_resource type="Animation" id="Animation_pp7pc"]
 resource_name = "Attack"
-length = 0.3
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -28,13 +29,25 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [3, 4, 5, 0]
+"values": [4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordHurtBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
-[sub_resource type="Animation" id="Animation_im711"]
+[sub_resource type="Animation" id="Animation_45y8y"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -48,8 +61,44 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/flash_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordHurtBox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="Animation" id="Animation_wjevy"]
+[sub_resource type="Animation" id="Animation_vpewq"]
 resource_name = "Walk"
 length = 0.4
 loop_mode = 1
@@ -60,21 +109,33 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordHurtBox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ldb6f"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bn6ca"]
 _data = {
-"Attack": SubResource("Animation_334xi"),
-"RESET": SubResource("Animation_im711"),
-"Walk": SubResource("Animation_wjevy")
+"Attack": SubResource("Animation_pp7pc"),
+"RESET": SubResource("Animation_45y8y"),
+"Walk": SubResource("Animation_vpewq")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pney5"]
-size = Vector2(20, 43)
+size = Vector2(19, 43)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sibt6"]
 particles_animation = true
@@ -86,7 +147,7 @@ particles_anim_loop = false
 _data = [Vector2(0.348571, 1), 0.0, 0.0, 0, 0, Vector2(0.754286, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_d5f6x"]
+[sub_resource type="CurveTexture" id="CurveTexture_5j4sw"]
 curve = SubResource("Curve_dah8h")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yuudr"]
@@ -100,7 +161,7 @@ initial_velocity_min = 735.37
 initial_velocity_max = 1750.0
 gravity = Vector3(0, 0, 0)
 scale_max = 4.0
-scale_curve = SubResource("CurveTexture_d5f6x")
+scale_curve = SubResource("CurveTexture_5j4sw")
 anim_offset_max = 1.0
 
 [sub_resource type="Animation" id="Animation_tyk5r"]
@@ -196,34 +257,42 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arcne"]
 size = Vector2(596.5, 336.5)
 
-[node name="RangedEnemyBlue" type="CharacterBody2D"]
-scale = Vector2(0.8, 0.8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5a4ym"]
+size = Vector2(29.5, 83.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06aik"]
+size = Vector2(24.2566, 53.7239)
+
+[node name="MeleeEnemyPink" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_h0y3j")
-damageDealt = 10
+script = ExtResource("1_mhye2")
+healthMax = 50.0
+damageDealt = 30
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 10.5)
+position = Vector2(-0.5, 11.5)
 shape = SubResource("RectangleShape2D_nl4ps")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
 material = SubResource("ShaderMaterial_hhr4w")
-texture = ExtResource("3_mf70f")
-hframes = 6
+position = Vector2(13, 0)
+texture = ExtResource("3_16oyy")
+hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ldb6f")
+"": SubResource("AnimationLibrary_bn6ca")
 }
+speed_scale = 0.8
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 128
-script = ExtResource("4_spvq7")
+script = ExtResource("4_l5b3k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, 11.5)
+position = Vector2(-0.5, 11.5)
 shape = SubResource("RectangleShape2D_pney5")
 
 [node name="DirectionTimer" type="Timer" parent="."]
@@ -234,7 +303,7 @@ material = SubResource("CanvasItemMaterial_sibt6")
 emitting = false
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_yuudr")
-texture = ExtResource("5_bn26n")
+texture = ExtResource("5_tvm1j")
 lifetime = 0.5
 one_shot = true
 speed_scale = 1.5
@@ -259,21 +328,43 @@ collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Aggro"]
 position = Vector2(240, -1)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_arcne")
 
-[node name="AttackSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_chb8d")
-volume_db = -15.0
-bus = &"SFX"
-script = ExtResource("7_awhh0")
+[node name="AttackCheck" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackCheck"]
+position = Vector2(3.5, -18.5)
+shape = SubResource("RectangleShape2D_5a4ym")
+
+[node name="SwordHurtBox" type="Area2D" parent="."]
+position = Vector2(-2, 0)
+collision_mask = 64
+script = ExtResource("6_epr7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHurtBox"]
+position = Vector2(13.9068, 6.71063)
+rotation = -0.350811
+shape = SubResource("RectangleShape2D_06aik")
+disabled = true
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_knkfj")
+stream = ExtResource("7_x80ex")
 volume_db = -10.0
 bus = &"SFX"
-script = ExtResource("7_awhh0")
+script = ExtResource("8_3oef2")
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_1eqci")
+volume_db = -20.0
+pitch_scale = 0.8
+bus = &"SFX"
+script = ExtResource("8_3oef2")
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="area_entered" from="Aggro" to="." method="_on_aggro_area_entered"]
 [connection signal="area_exited" from="Aggro" to="." method="_on_aggro_area_exited"]
+[connection signal="area_entered" from="AttackCheck" to="." method="_on_attack_check_area_entered"]
+[connection signal="area_exited" from="AttackCheck" to="." method="_on_attack_check_area_exited"]
+[connection signal="area_entered" from="SwordHurtBox" to="SwordHurtBox" method="_on_area_entered"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvlduc7mm8t6x"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_gbep7"]
+[ext_resource type="Texture2D" uid="uid://cq8u2luwsr8al" path="res://assets/sprites/Enemies/PinkBullet-sheet.png" id="2_mtj3w"]
+[ext_resource type="Script" path="res://Scripts/HurtBox.gd" id="3_c3y7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7m0l"]
+size = Vector2(14, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_id4ng"]
+size = Vector2(13, 4)
+
+[node name="PinkBullet" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_gbep7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 4.76837e-07)
+texture = ExtResource("2_mtj3w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d7m0l")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(-2, 0)
+collision_mask = 64
+script = ExtResource("3_c3y7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_id4ng")
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]

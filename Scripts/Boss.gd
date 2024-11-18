@@ -100,7 +100,6 @@ func attack():
 	stunned = true
 	animation_player.play("Attack")
 	await get_tree().create_timer(0.5, true, false, false).timeout
-	attack_sound.play()
 	stunned = false
 
 func _on_attack_check_area_entered(_area: Area2D) -> void:

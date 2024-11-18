@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3monfpiibwm1"
-path="res://.godot/imported/PlayerParticles.png-ef9d3242b9a47f1bcc3490c65a488854.ctex"
+uid="uid://cq8u2luwsr8al"
+path="res://.godot/imported/PinkBullet-sheet.png-543f9bc2e6478f9b1abaf04eec3c2b52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/PlayerParticles.png"
-dest_files=["res://.godot/imported/PlayerParticles.png-ef9d3242b9a47f1bcc3490c65a488854.ctex"]
+source_file="res://assets/sprites/Enemies/PinkBullet-sheet.png"
+dest_files=["res://.godot/imported/PinkBullet-sheet.png-543f9bc2e6478f9b1abaf04eec3c2b52.ctex"]
 
 [params]
 

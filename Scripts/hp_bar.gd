@@ -13,7 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if whiteHP and damage_bar.value>hp:
-		damage_bar.value = move_toward(damage_bar.value, hp, 100*delta)
+		damage_bar.value = move_toward(damage_bar.value, hp, 75*delta)
 	else:
 		whiteHP = false
 
