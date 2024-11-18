@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://3v64vmvffqfm"]
+[gd_scene load_steps=25 format=3 uid="uid://3v64vmvffqfm"]
 
-[ext_resource type="Script" path="res://Scripts/ranged_enemy.gd" id="1_ph1rh"]
-[ext_resource type="PackedScene" uid="uid://dvlduc7mm8t6x" path="res://scenes/pink_bullet.tscn" id="2_f83l2"]
+[ext_resource type="Script" path="res://Scripts/ranged_enemy_pink.gd" id="1_qmlxf"]
 [ext_resource type="Shader" path="res://assets/Shaders/hitFlash.gdshader" id="2_nvjwj"]
 [ext_resource type="Texture2D" uid="uid://885q03wosfqd" path="res://assets/sprites/Enemies/PinkGunEnemy.png" id="3_lrmds"]
 [ext_resource type="Script" path="res://Scripts/HitBox.gd" id="4_xwsfm"]
@@ -201,10 +200,7 @@ size = Vector2(596.5, 336.5)
 scale = Vector2(0.8, 0.8)
 collision_layer = 2
 collision_mask = 4
-script = ExtResource("1_ph1rh")
-bullet = ExtResource("2_f83l2")
-healthMax = 30.0
-damageDealt = 15
+script = ExtResource("1_qmlxf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10.5)
