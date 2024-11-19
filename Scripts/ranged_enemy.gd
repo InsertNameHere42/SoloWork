@@ -10,11 +10,10 @@ class_name RangedEnemy
 @onready var wall_check: RayCast2D = $wallCheck
 @onready var aggro: Area2D = $Aggro
 @onready var aggroCollider: CollisionShape2D = $Aggro/CollisionShape2D
-@onready var attack_check: Area2D = $AttackCheck
 @onready var hit_sound: AudioStreamPlayer = $HitSound
 @onready var attack_sound: AudioStreamPlayer = $AttackSound
 
-@export var bullet = preload("res://scenes/bluebullet.tscn")
+@onready var blueBullet = preload("res://scenes/bluebullet.tscn")
 var attacking := false
 var canJump := false
 var stunned := false
@@ -89,25 +88,22 @@ func move(delta):
 func takeDamage(damage, knockback):
 	if active:
 		hit_sound.play()
-		stunned = true
-		animation_player.pause()
 		velocity = knockback
 		hit_particles.restart()
 		hit_particles.emitting = true
 		owner.shake(shakeStrength)
 		health -= damage
 		hit.play("Hurt")
-		animation_player.play("RESET")
 		HitStopManager.hitStop(0.1)
-		await get_tree().create_timer(1, true, false, true)
-		stunned = false
-		animation_player.play()
+		hitStun(0.2)
+		
+		
 
 func die():
 	hit.play("Dead")
 	active = false
 	hit_box.disable()
-	await get_tree().create_timer(0.3, true, false, true).timeout
+	await get_tree().create_timer(0.3, true, false, false).timeout
 	queue_free()
 
 func _on_direction_timer_timeout() -> void:
@@ -127,14 +123,21 @@ func jump():
 func attack():
 	attack_sound.play()
 	animation_player.play("Attack")
-	var bullet = bullet.instantiate()
-	get_tree().get_root().add_child(bullet)
+	var bullet = blueBullet.instantiate()
+	add_child(bullet)
+	bullet.top_level = true
 	bullet.setDamage(damageDealt)
 	bullet.global_position = global_position
 	var bulletDir = (target.global_position - global_position).normalized()
 	bullet.global_rotation = bulletDir.angle()
 	bullet.direction = bulletDir
 	
+func hitStun(time):
+	stunned = true
+	animation_player.pause()
+	await get_tree().create_timer(time, true, false, false).timeout
+	stunned = false
+	animation_player.play()
 
 func _on_aggro_area_entered(_area: Area2D) -> void:
 	targetNear = true

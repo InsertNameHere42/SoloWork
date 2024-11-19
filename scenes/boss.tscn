@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://brtbumnximld2"]
+[gd_scene load_steps=30 format=3 uid="uid://brtbumnximld2"]
 
 [ext_resource type="Script" path="res://Scripts/Boss.gd" id="1_vko74"]
 [ext_resource type="Shader" path="res://assets/Shaders/outline.gdshader" id="2_fcmon"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://d0h7uc8ejv6xx" path="res://assets/Sounds/Hit.mp3" id="7_ea3ts"]
 [ext_resource type="Script" path="res://Scripts/RandomizedAudio.gd" id="8_yvlij"]
 [ext_resource type="AudioStream" uid="uid://ckr4ximq8g5y" path="res://assets/Sounds/Attack.mp3" id="9_kka5b"]
+[ext_resource type="AudioStream" uid="uid://bxslda2imp0vq" path="res://assets/Sounds/EnemyShoot.mp3" id="10_slaqu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wmsl"]
 size = Vector2(32, 68)
@@ -63,6 +64,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordHurtBox/CollisionShape2D2:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_fxyyk"]
 length = 0.001
@@ -102,6 +115,58 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ThrowSound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SwordHurtBox/CollisionShape2D2:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_khw31"]
+resource_name = "Throw"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 12, 13, 14, 14, 15, 16, 17]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ThrowSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_p73nl"]
 resource_name = "Walk"
@@ -131,11 +196,24 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SwordHurtBox/CollisionShape2D2:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cjd5a"]
 _data = {
 "Attack": SubResource("Animation_0eve2"),
 "RESET": SubResource("Animation_fxyyk"),
+"Throw": SubResource("Animation_khw31"),
 "Walk": SubResource("Animation_p73nl")
 }
 
@@ -183,6 +261,45 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1.1487),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_qwm16"]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/max_line_width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [30.0, 20.0, 50.0, 10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/freq")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [12.0, 6.0, 24.0, 2.0]
 }
 
 [sub_resource type="Animation" id="Animation_4slw7"]
@@ -236,45 +353,6 @@ tracks/3/keys = {
 "values": [2.0]
 }
 
-[sub_resource type="Animation" id="Animation_qwm16"]
-resource_name = "Hurt"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf"), SubResource("ShaderMaterial_xlubf")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:material:shader_parameter/max_line_width")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [30.0, 20.0, 50.0, 10.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:material:shader_parameter/freq")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [12.0, 6.0, 24.0, 2.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a3wvo"]
 _data = {
 "Dead": SubResource("Animation_tyk5r"),
@@ -288,11 +366,13 @@ size = Vector2(37.75, 83.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dycwv"]
 size = Vector2(37.7595, 78.426)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ty6qb"]
+size = Vector2(50, 20)
+
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_vko74")
-knockbackForce = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 10)
@@ -359,6 +439,11 @@ rotation = -0.350811
 shape = SubResource("RectangleShape2D_dycwv")
 disabled = true
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SwordHurtBox"]
+position = Vector2(13.875, 32)
+shape = SubResource("RectangleShape2D_ty6qb")
+disabled = true
+
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_ea3ts")
 volume_db = -10.0
@@ -372,6 +457,13 @@ stream = ExtResource("9_kka5b")
 volume_db = -10.0
 pitch_scale = 0.4
 max_polyphony = 3
+bus = &"SFX"
+script = ExtResource("8_yvlij")
+
+[node name="ThrowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_slaqu")
+volume_db = -15.0
+pitch_scale = 0.4
 bus = &"SFX"
 script = ExtResource("8_yvlij")
 

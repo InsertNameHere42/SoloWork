@@ -34,6 +34,7 @@ var dir := 1
 
 func _ready() -> void:
 	sword_hurt_box.damage = damageDealt
+	sword_hurt_box.knockback = knockbackForce
 
 func _physics_process(delta: float) -> void:
 	if attacking and !stunned:
@@ -80,25 +81,20 @@ func move(delta):
 func takeDamage(damage, knockback):
 	if active:
 		hit_sound.play()
-		stunned = true
-		animation_player.pause()
 		velocity = knockback
 		hit_particles.restart()
 		hit_particles.emitting = true
 		owner.shake(shakeStrength)
 		health -= damage
 		hit.play("Hurt")
-		animation_player.play("RESET")
 		HitStopManager.hitStop(0.1)
-		await get_tree().create_timer(1, true, false, true)
-		stunned = false
-		animation_player.play()
+		hitStun(0.1)
 
 func die():
 	hit.play("Dead")
 	active = false
 	hit_box.disable()
-	await get_tree().create_timer(0.3, true, false, true).timeout
+	await get_tree().create_timer(0.3, true, false, false).timeout
 	queue_free()
 
 func _on_direction_timer_timeout() -> void:
@@ -121,6 +117,14 @@ func attack():
 	attack_sound.play()
 	await get_tree().create_timer(randf_range(0.3, 0.8), true, false, false).timeout
 	stunned = false
+
+func hitStun(time):
+	stunned = true
+	animation_player.pause()
+	await get_tree().create_timer(time, true, false, false).timeout
+	stunned = false
+	animation_player.play()
+
 
 func _on_aggro_area_entered(_area: Area2D) -> void:
 	targetNear = true

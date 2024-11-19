@@ -1,8 +1,9 @@
 extends CharacterBody2D
+
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hurt_box: HurtBox = $HurtBox
 
-@export var speed := 600.0
+var speed := 500.0
 var direction : Vector2 = Vector2.LEFT # default direction
 
 func _process(delta):

@@ -14,8 +14,10 @@ extends CharacterBody2D
 @export var maxSpeed := 600.0
 @export var acceleration := 1200
 @export var friction := 10
+@export var hp := 150.0
 
-var hp := 100.0
+signal shifted
+
 var place := 0
 var shiftCoolDown := 3.0
 var idle: = true
@@ -153,19 +155,22 @@ func setDmg(dmg):
 
 func shift():
 	owner.shake(0.3)
+
+	sfx.playParry()
 	if place==0:
-		self.position.y -= 99*16
+		self.position.y -= 1584
+		shifted.emit(-1584)
 		place = 1
 	else:
-		self.position.y += 99*16
+		self.position.y += 1584
+		shifted.emit(1584)
 		place = 0
-	await get_tree().create_timer(0.1, true, false, true).timeout
 	
-func takeDamage(damage, knockback):
+func takeDamage(damage, kb):
 	if parrying:
 		parry_particles.restart()
 		parry_particles.emitting = true
-		hp = min(100, hp+damage/2)
+		hp = min(150, hp+damage/2)
 		ui.setHP(hp)
 		hit.play("ParryFlash")
 		sfx.playParry()
@@ -174,7 +179,7 @@ func takeDamage(damage, knockback):
 		return true
 	else:
 		if !is_on_floor():
-			velocity = knockback*4
+			velocity = kb*4
 		hit_particles.restart()
 		hit_particles.emitting = true
 		hp -= damage

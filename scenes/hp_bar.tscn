@@ -10,6 +10,7 @@ bg_color = Color(1, 1, 1, 1)
 [node name="HPBar" type="TextureProgressBar"]
 offset_right = 82.0
 offset_bottom = 8.0
+max_value = 300.0
 value = 60.0
 texture_over = ExtResource("1_1rmgo")
 texture_progress = ExtResource("2_xjxyl")
@@ -26,6 +27,7 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_myhyv")
+max_value = 300.0
 value = 80.0
 show_percentage = false
 
